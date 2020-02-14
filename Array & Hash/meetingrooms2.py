@@ -1,29 +1,18 @@
-class Solution(object):
-    def threeSum(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
-        nums.sort()
-        n = len(nums)
-        solutions = set()
-        unique_set = set(nums)
-        i = 0
-        while i < n - 2:
-            num = nums[i]
-            left = i + 1
-            right = n - 1
-            while left < right:
-                left_num = nums[left]
-                right_num = nums[right]
-                s = num + left_num + right_num  
-                if s == 0:
-                    solutions.add(tuple([right_num, num, left_num]))
-                    right -= 1
-                    left += 1
-                elif s > 0:
-                    right -= 1
-                else:
-                    left += 1
-            i += 1
-        return list(solutions)
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if len(intervals) == 0:
+            return 0
+        
+        available_rooms = []
+                
+        intervals.sort(key = lambda x: x[0])
+        
+        heapq.heappush(available_rooms, intervals[0][1])
+        
+        for i in intervals[1:]:
+            if available_rooms[0] <= i[0]:
+                heapq.heappop(available_rooms)
+                
+            heapq.heappush(available_rooms, i[1])
+        
+        return len(available_rooms)
