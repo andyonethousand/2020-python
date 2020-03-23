@@ -9,7 +9,7 @@ class Solution:
 
         result = True
         last_seen = None
-
+        
         for word in words:
             c = word[0]
             if last_seen is None or dic[c] > last_seen:
